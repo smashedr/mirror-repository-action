@@ -48,7 +48,13 @@ username=${USERNAME}
 password=${PASSWORD}
 EOF
 
-git clone https://codeberg.org/shaner/private.git
-ls -lah private
+pwd
+ls -lah
+
+#git clone https://codeberg.org/shaner/private.git
+#ls -lah private
+
+git status
+git remote
 
 echo -e "\u001b[32;1mFinished Success."
