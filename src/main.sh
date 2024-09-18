@@ -48,6 +48,8 @@ ls -lah
 GIT_HOST=$(echo "${REMOTE_URL}" | awk -F'/' '{print $3}')
 echo "GIT_HOST: ${GIT_HOST}"
 
+git config --global --add safe.directory "$(pwd)"
+
 git config --global credential.helper cache
 git credential approve <<EOF
 protocol=https
