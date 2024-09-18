@@ -42,6 +42,8 @@ PASSWORD="${INPUT_PASSWORD:?err}"
 echo "PASSWORD: ${PASSWORD}"
 
 echo "debug 2"
+pwd
+ls -lah
 
 GIT_HOST=$(echo "${REMOTE_URL}" | awk -F'/' '{print $3}')
 echo "GIT_HOST: ${GIT_HOST}"
@@ -54,8 +56,6 @@ username=${USERNAME}
 password=${PASSWORD}
 EOF
 
-pwd
-ls -lah
 
 #git clone https://codeberg.org/shaner/private.git
 #ls -lah private
