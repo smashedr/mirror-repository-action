@@ -58,11 +58,16 @@ username=${USERNAME}
 password=${PASSWORD}
 EOF
 
-
 #git clone https://codeberg.org/shaner/private.git
 #ls -lah private
 
 git status
+git branch
 git remote -v
+
+BRANCH="$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)"
+echo "BRANCH: ${BRANCH}"
+
+git remote add mirror "${REMOTE_URL}" "${BRANCH}"
 
 echo -e "\u001b[32;1mFinished Success."
