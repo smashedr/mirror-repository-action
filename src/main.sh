@@ -35,13 +35,10 @@ echo -e "REMOTE_URL: \u001b[33;1m${REMOTE_URL}"
 USERNAME="${INPUT_USERNAME:-${OWNER}}"
 echo "USERNAME: ${USERNAME}"
 
-echo "debug 1"
-echo "INPUT_PASSWORD: ${INPUT_PASSWORD}"
-
 PASSWORD="${INPUT_PASSWORD:?err}"
 echo "PASSWORD: ${PASSWORD}"
 
-echo "debug 2"
+echo "debug 1"
 pwd
 ls -lah
 
@@ -63,11 +60,12 @@ EOF
 
 git status
 git branch
-git remote -v
 
 BRANCH="$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)"
 echo "BRANCH: ${BRANCH}"
 
-git remote add mirror "${REMOTE_URL}" "${BRANCH}"
+git remote add mirror "${REMOTE_URL}"
+git remote -v
+git push mirror "${BRANCH}"
 
 echo -e "\u001b[32;1mFinished Success."
