@@ -34,8 +34,14 @@ echo -e "REMOTE_URL: \u001b[33;1m${REMOTE_URL}"
 
 USERNAME="${INPUT_USERNAME:-${OWNER}}"
 echo "USERNAME: ${USERNAME}"
+
+echo "debug 1"
+echo "INPUT_PASSWORD: ${INPUT_PASSWORD}"
+
 PASSWORD="${INPUT_PASSWORD:?err}"
 echo "PASSWORD: ${PASSWORD}"
+
+echo "debug 2"
 
 GIT_HOST=$(echo "${REMOTE_URL}" | awk -F'/' '{print $3}')
 echo "GIT_HOST: ${GIT_HOST}"
