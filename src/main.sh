@@ -63,6 +63,6 @@ EOF
 #ls -lah private
 
 git status
-git remote
+git remote -v
 
 echo -e "\u001b[32;1mFinished Success."
