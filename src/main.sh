@@ -62,7 +62,8 @@ if [ "${GITHUB_EVENT_NAME}" == "push" ];then
     echo "event: ${GITHUB_EVENT_NAME}"
     #git push mirror "${BRANCH}"
 #    git fetch --tags
-    git push --mirror mirror
+#    git push --mirror mirror
+    git push mirror
     git push --tags mirror
 else
     echo "\u001b[31;1mUNKNOWN event: ${GITHUB_EVENT_NAME}"
