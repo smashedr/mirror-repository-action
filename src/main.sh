@@ -60,7 +60,7 @@ git remote -v
 
 if [ "${GITHUB_EVENT_NAME}" == "push" ];then
     echo "event: ${GITHUB_EVENT_NAME}"
-    git push --all mirror  # "${BRANCH}"
+    git push mirror "${BRANCH}"
 #    git fetch --tags
 #    git push --mirror mirror
     git push --tags mirror
