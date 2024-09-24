@@ -6,6 +6,7 @@ echo "Running: ${0} as: $(whoami) in: $(pwd)"
 
 echo "---------- GITHUB ----------"
 
+echo "GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}"
 echo "GITHUB_REF: ${GITHUB_REF}"
 #echo "GITHUB_BASE_REF: ${GITHUB_BASE_REF}"
 #echo "GITHUB_HEAD_REF: ${GITHUB_HEAD_REF}"
@@ -38,10 +39,6 @@ echo "USERNAME: ${USERNAME}"
 PASSWORD="${INPUT_PASSWORD:?err}"
 echo "PASSWORD: ${PASSWORD}"
 
-echo "debug 1"
-pwd
-ls -lah
-
 GIT_HOST=$(echo "${REMOTE_URL}" | awk -F'/' '{print $3}')
 echo "GIT_HOST: ${GIT_HOST}"
 
@@ -55,17 +52,20 @@ username=${USERNAME}
 password=${PASSWORD}
 EOF
 
-#git clone https://codeberg.org/shaner/private.git
-#ls -lah private
-
-git status
-git branch
-
 BRANCH="$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)"
 echo "BRANCH: ${BRANCH}"
 
 git remote add mirror "${REMOTE_URL}"
 git remote -v
-git push mirror "${BRANCH}"
+
+if [ "${GITHUB_EVENT_NAME}" == "push" ];then
+    echo "event: ${GITHUB_EVENT_NAME}"
+    #git push mirror "${BRANCH}"
+#    git fetch --tags
+    git push --mirror mirror
+    git push --tags mirror
+else
+    echo "\u001b[31;1mUNKNOWN event: ${GITHUB_EVENT_NAME}"
+fi
 
 echo -e "\u001b[32;1mFinished Success."
