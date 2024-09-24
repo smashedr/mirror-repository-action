@@ -13,15 +13,17 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: "Test Local Action"
         id: test
         uses: ./
         with:
-          url: https://codeberg.org/shaner/private
+          url: https://codeberg.org/shaner/mirror-repository-action
           #host: https://codeberg.org
-          owner: shaner
-          repo: private
+          #          owner: shaner
+          #          repo: mirror-repository-action
           username: shaner
           password: ${{ secrets.CODEBERG_TOKEN }}
 
