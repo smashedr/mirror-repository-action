@@ -65,10 +65,6 @@ if [ "${GITHUB_EVENT_NAME}" == "push" ];then
     echo "event: ${GITHUB_EVENT_NAME}"
 #    git push mirror "${BRANCH}"
     git push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
-#    git push --tags --force --prune mirror "\"refs/remotes/origin/*:refs/heads/*\""
-#    git fetch --tags
-#    git push --mirror mirror
-#    git push --tags mirror
 else
     echo "\u001b[31;1mUNKNOWN event: ${GITHUB_EVENT_NAME}"
 fi
