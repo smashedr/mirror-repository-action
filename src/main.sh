@@ -52,6 +52,9 @@ username=${USERNAME}
 password=${PASSWORD}
 EOF
 
+echo "git branch: $(git branch)"
+BRANCH1="$(git rev-parse --abbrev-ref HEAD)"
+echo "BRANCH1: ${BRANCH1}"
 BRANCH="$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)"
 echo "BRANCH: ${BRANCH}"
 
@@ -60,10 +63,8 @@ git remote -v
 
 if [ "${GITHUB_EVENT_NAME}" == "push" ];then
     echo "event: ${GITHUB_EVENT_NAME}"
-    git push mirror "${BRANCH}"
-#    git fetch --tags
-#    git push --mirror mirror
-    git push --tags mirror
+#    git push mirror "${BRANCH}"
+    git push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
 else
     echo "\u001b[31;1mUNKNOWN event: ${GITHUB_EVENT_NAME}"
 fi
