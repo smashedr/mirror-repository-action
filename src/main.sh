@@ -61,12 +61,14 @@ echo "BRANCH: ${BRANCH}"
 git remote add mirror "${REMOTE_URL}"
 git remote -v
 
-if [ "${GITHUB_EVENT_NAME}" == "push" ];then
-    echo "event: ${GITHUB_EVENT_NAME}"
-#    git push mirror "${BRANCH}"
-    git push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
-else
-    echo "\u001b[31;1mUNKNOWN event: ${GITHUB_EVENT_NAME}"
-fi
+git push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
+
+#if [ "${GITHUB_EVENT_NAME}" == "push" ];then
+#    echo "event: ${GITHUB_EVENT_NAME}"
+#    #git push mirror "${BRANCH}"
+#    git push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
+#else
+#    echo -e "\u001b[31;1mUNKNOWN event: ${GITHUB_EVENT_NAME}"
+#fi
 
 echo -e "\u001b[32;1mFinished Success."
