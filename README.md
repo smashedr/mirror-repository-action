@@ -9,49 +9,58 @@
 
 # Mirror Repository Action
 
-* [Inputs](#Inputs)
-* [Outputs](#Outputs)
-* [Development](#Development)
+-   [Inputs](#Inputs)
+-   [Development](#Development)
 
 ## Inputs
 
-| input       | required | default | description |
-|-------------|----------|---------|-------------|
-| coming soon | No       | -       | -           |
+| input    | required | default    | description                                          |
+| -------- | -------- | ---------- | ---------------------------------------------------- |
+| url      | No       | -          | Full URL to Mirror, overrides: `host`/`owner`/`repo` |
+| host     | No       | -          | URL to Mirror Host, example: `https://codeberg.org`  |
+| owner    | No       | Repo Owner | Repository Owner of Mirror                           |
+| repo     | No       | Repo Name  | Repository Name of Mirror                            |
+| username | No       | Repo Owner | Username for Authentication to Mirror                |
+| password | Yes      | -          | Token or Password for Authentication to Mirror       |
+
+Note: You must provide either a `url` or `host`.
+
+If providing a `host` the `url` is created from `host`/`owner`/`repo` using either provided values or source repository values.
 
 ```yaml
-  - name: "PY Test Action"
-    uses: smashedr/mirror-repository-action@master
-    with:
-      url: https://codeberg.org/shaner/private
-      #host: https://codeberg.org
-      owner: shaner
-      repo: private
-      username: shaner
-      password: ${{ secrets.CODEBERG_TOKEN }}
-```
+name: 'Mirror'
 
-## Outputs
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - '*'
+        tags:
+            - '*'
 
-| output | description    |
-|--------|----------------|
-| time   | Resulting Time |
+jobs:
+    mirror:
+        name: 'Mirror'
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
 
-```yaml
-  - name: "PY Test Action"
-    id: test
-    uses: smashedr/mirror-repository-action@master
-    with:
-      url: https://codeberg.org/shaner/private
-      #host: https://codeberg.org
-      owner: shaner
-      repo: private
-      username: shaner
-      password: ${{ secrets.CODEBERG_TOKEN }}
+        steps:
+            - name: 'Checkout'
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
 
-  #- name: "Echo Output"
-  #  run: |
-  #    echo '${{ steps.test.outputs.time }}'
+            - name: 'Mirror to Codeberg'
+              id: test
+              #uses: ./.github/mirror-repository-action/
+              uses: smashedr/mirror-repository-action@master
+              with:
+                  url: https://codeberg.org/shaner/codeberg-mirror
+                  #host: https://codeberg.org
+                  #owner: shaner
+                  #repo: codeberg-mirror
+                  username: shaner
+                  password: ${{ secrets.CODEBERG_TOKEN }}
 ```
 
 # Development

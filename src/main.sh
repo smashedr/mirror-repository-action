@@ -52,9 +52,9 @@ username=${USERNAME}
 password=${PASSWORD}
 EOF
 
-echo "git branch: $(git branch)"
-BRANCH1="$(git rev-parse --abbrev-ref HEAD)"
-echo "BRANCH1: ${BRANCH1}"
+#echo "git branch: $(git branch)"
+#BRANCH1="$(git rev-parse --abbrev-ref HEAD)"
+#echo "BRANCH1: ${BRANCH1}"
 BRANCH="$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)"
 echo "BRANCH: ${BRANCH}"
 

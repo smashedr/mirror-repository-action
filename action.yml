@@ -25,10 +25,6 @@ inputs:
     description: "Remote Repository Password"
     required: false
 
-#outputs:
-#  time:
-#    description: "Your output description here"
-
 runs:
   using: "docker"
   image: "Dockerfile"
