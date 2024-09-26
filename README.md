@@ -16,14 +16,14 @@ Test 2 NEW
 
 ## Inputs
 
-| input    | required | default    | description                                          |
-| -------- | -------- | ---------- | ---------------------------------------------------- |
-| url      | No       | -          | Full URL to Mirror, overrides: `host`/`owner`/`repo` |
-| host     | No       | -          | URL to Mirror Host, example: `https://codeberg.org`  |
-| owner    | No       | Repo Owner | Repository Owner of Mirror                           |
-| repo     | No       | Repo Name  | Repository Name of Mirror                            |
-| username | No       | Repo Owner | Username for Authentication to Mirror                |
-| password | Yes      | -          | Token or Password for Authentication to Mirror       |
+| input    | required     | default    | description                                          |
+| -------- | ------------ | ---------- | ---------------------------------------------------- |
+| url      | No if `host` | -          | Full URL to Mirror, overrides: `host`/`owner`/`repo` |
+| host     | No if `url`  | -          | Full Host to Mirror, example: `https://codeberg.org` |
+| owner    | No           | Repo Owner | Repository Owner of Mirror                           |
+| repo     | No           | Repo Name  | Repository Name of Mirror                            |
+| username | No           | Repo Owner | Username for Authentication to Mirror                |
+| password | Yes          | -          | Token or Password for Authentication to Mirror       |
 
 Note: You must provide either a `url` or `host`.
 
@@ -36,9 +36,9 @@ on:
     workflow_dispatch:
     push:
         branches:
-            - '*'
+            - '**'
         tags:
-            - '*'
+            - '**'
 
 jobs:
     mirror:
@@ -54,7 +54,6 @@ jobs:
 
             - name: 'Mirror to Codeberg'
               id: test
-              #uses: ./.github/mirror-repository-action/
               uses: smashedr/mirror-repository-action@master
               with:
                   url: https://codeberg.org/shaner/codeberg-mirror
